@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Session with Webwiz | Music &amp; Piano Tutorials</title>
+<meta name="description" content="Book piano lessons, voice training, song arrangement and more with Webwiz. Pick your service, date and time, and get instant confirmation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F7F2E7;
+    --cream:#FDFBF5;
+    --ebony:#181310;
+    --ink:#2A221B;
+    --brass:#A97E2F;
+    --brass-soft:#E9DCC0;
+    --felt:#9C3D2E;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:'Karla',system-ui,sans-serif; color:var(--ink);
+    background:var(--ebony); display:flex; min-height:100vh;
+  }
+
+  /* ============ Brand column ============ */
+  .brand{
+    flex:1 1 44%; color:var(--ivory); padding:56px 48px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative; overflow:hidden;
+  }
+  /* staff lines texture */
+  .brand::before{
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(to bottom, transparent 0 92px,
+      rgba(247,242,231,.07) 92px 93px);
+    pointer-events:none;
+  }
+  .brand > *{ position:relative; }
+  .eyebrow{ font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--brass); font-weight:700; }
+  h1{ font-family:'Fraunces',serif; font-weight:650; font-size:clamp(34px,4.5vw,54px); line-height:1.08; margin:14px 0 12px; }
+  .lede{ font-size:16px; line-height:1.6; opacity:.78; max-width:44ch; }
+
+  .setlist{ margin-top:36px; }
+  .setlist h2{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; opacity:.55; margin-bottom:14px; }
+  .setlist ul{ list-style:none; }
+  .setlist li{
+    display:flex; align-items:baseline; gap:12px; padding:9px 0;
+    border-bottom:1px solid rgba(247,242,231,.12); font-size:15.5px;
+  }
+  .setlist li::before{ content:'\266A'; color:var(--brass); font-size:13px; }
+
+  .how{ margin-top:36px; font-size:13.5px; line-height:1.65; opacity:.6; max-width:42ch; }
+  .foot{ font-size:12.5px; opacity:.45; margin-top:40px; }
+
+  /* ============ Booking column ============ */
+  .stage{
+    flex:1 1 56%; background:var(--ivory);
+    display:flex; align-items:center; justify-content:center; padding:36px 24px;
+  }
+  .booker{
+    width:min(460px,100%); background:var(--cream); border-radius:20px; overflow:hidden;
+    border:1px solid #E7DFCF; box-shadow:0 24px 60px rgba(24,19,16,.18);
+    display:flex; flex-direction:column; height:min(640px, calc(100vh - 72px)); min-height:480px;
+  }
+  .head{ background:var(--ebony); color:var(--ivory); padding:18px 20px 12px; }
+  .head h2{ font-family:'Fraunces',serif; font-weight:650; font-size:20px; }
+  .head p{ font-size:12.5px; opacity:.75; margin-top:2px; }
+
+  /* piano-key progress */
+  .keys{ display:flex; height:28px; background:var(--ebony); padding:0 20px 14px; gap:3px; }
+  .key{ flex:1; background:var(--ivory); border-radius:0 0 4px 4px; opacity:.35; transition:opacity .3s, background .3s; position:relative; }
+  .key.done{ opacity:1; background:var(--brass); }
+  .key.now{ opacity:1; }
+  .key::after{ content:''; position:absolute; top:0; right:-2px; width:45%; height:55%; background:var(--ebony); border-radius:0 0 2px 2px; }
+  .key:last-child::after{ display:none; }
+
+  .chat{ flex:1; overflow-y:auto; padding:18px 16px; display:flex; flex-direction:column; gap:10px; background:var(--ivory); }
+  .msg{ max-width:84%; padding:10px 13px; border-radius:14px; font-size:14.5px; line-height:1.45; }
+  .bot{ background:var(--cream); border:1px solid #EAE2D0; align-self:flex-start; border-bottom-left-radius:4px; }
+  .user{ background:var(--ebony); color:var(--ivory); align-self:flex-end; border-bottom-right-radius:4px; }
+
+  .card{ background:var(--cream); border:1px solid var(--brass-soft); border-left:4px solid var(--brass);
+    border-radius:12px; padding:12px 14px; align-self:stretch; font-size:13.5px; }
+  .card h3{ font-family:'Fraunces',serif; font-size:15px; margin-bottom:8px; color:var(--ebony); }
+  .card div{ display:flex; justify-content:space-between; gap:12px; padding:3px 0; border-bottom:1px dashed #EAE2D0; }
+  .card div:last-of-type{ border-bottom:none; }
+  .card span{ opacity:.65; }
+  .card b{ text-align:right; word-break:break-word; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; align-self:stretch; }
+  .chip{ border:1.5px solid var(--ebony); background:var(--cream); color:var(--ink);
+    border-radius:20px; padding:8px 14px; font-size:13.5px; font-family:inherit; font-weight:500; cursor:pointer;
+    transition:background .15s, color .15s; }
+  .chip:hover{ background:var(--ebony); color:var(--ivory); }
+  .chip:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+
+  .barwrap{ background:var(--cream); border-top:1px solid #EAE2D0; }
+  .error{ color:var(--felt); font-size:12.5px; padding:8px 18px 0; }
+  .bar{ display:flex; gap:8px; padding:12px 16px; }
+  .bar input{
+    flex:1; border:1.5px solid #D8CFBB; border-radius:10px; padding:11px 13px;
+    font-family:inherit; font-size:14.5px; color:var(--ink); background:var(--cream);
+  }
+  .bar input:focus{ outline:none; border-color:var(--brass); }
+  .sendbtn{ border:none; background:var(--brass); color:#fff; border-radius:10px; padding:0 18px;
+    font-family:inherit; font-weight:700; font-size:14px; cursor:pointer; }
+  .sendbtn:hover{ filter:brightness(1.08); }
+  .sendbtn:focus-visible{ outline:2px solid var(--ebony); outline-offset:2px; }
+  .sendbtn:disabled{ opacity:.5; cursor:default; }
+  .confirm{ align-self:stretch; border:none; background:var(--ebony); color:var(--ivory);
+    font-family:inherit; font-weight:700; font-size:14.5px; border-radius:12px; padding:13px; cursor:pointer; }
+  .confirm:hover{ background:#000; }
+  .hidden{ display:none !important; }
+
+  @media (max-width: 860px){
+    body{ flex-direction:column; }
+    .brand{ padding:40px 26px 30px; }
+    .setlist li{ font-size:14.5px; padding:7px 0; }
+    .how{ display:none; }
+    .foot{ margin-top:24px; }
+    .stage{ padding:22px 14px 34px; }
+    .booker{ height:auto; min-height:520px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .key{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <aside class="brand">
+    <div>
+      <div class="eyebrow">Music &amp; Piano Tutorials</div>
+      <h1>Learn music with Webwiz.</h1>
+      <p class="lede">Piano, voice, arrangement and more, taught one on one. Pick a service, choose your day and time, and your seat at the keys is reserved.</p>
+      <div class="setlist">
+        <h2>On the programme</h2>
+        <ul>
+          <li>Piano lessons</li>
+          <li>Voice training</li>
+          <li>Music training</li>
+          <li>Song arrangement</li>
+          <li>Classical training</li>
+          <li>Contemporary music</li>
+        </ul>
+      </div>
+      <p class="how">Booking takes under a minute. You get a confirmation email the moment it lands, and the session goes straight onto the calendar so your slot is held.</p>
+    </div>
+    <p class="foot">&copy; Webwiz. All music, all levels, all welcome.</p>
+  </aside>
+
+  <main class="stage">
+    <div class="booker" role="region" aria-label="Book a music session">
+      <div class="head">
+        <h2>Book a Session</h2>
+        <p>Answer a few quick questions</p>
+      </div>
+      <div class="keys" id="keys" aria-hidden="true"></div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="barwrap">
+        <div class="error hidden" id="error"></div>
+        <div class="bar" id="bar">
+          <input id="input" type="text" autocomplete="off" aria-label="Your answer">
+          <button class="sendbtn" id="sendbtn">Send</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script>
+(function(){
+  /* ================= CONFIG ================= */
+  var WEBHOOK_URL = "https://hook.us2.make.com/ologecave6i99bgxo7m8m8wfm1rcapbe";
+  var TUTOR_NAME  = "Webwiz";
+
+  var SERVICES = [
+    "Piano lessons", "Voice training", "Music training",
+    "Song arrangement", "Classical training", "Contemporary music", "Something else"
+  ];
+
+  var steps = [
+    { key:"name",    q:"Hi there! I can book your session with " + TUTOR_NAME + " in under a minute. What's your full name?", type:"text",  validate:function(v){ return v.length>=2 || "Please enter your name."; } },
+    { key:"service", q:"Nice to meet you, {name}! What would you like to book?", type:"chips" },
+    { key:"date",    q:"Great choice. What date works for you?", type:"date",  validate:validDate },
+    { key:"time",    q:"And what time on that day?", type:"time",  validate:function(v){ return !!v || "Please pick a time."; } },
+    { key:"email",   q:"Almost done. What's your email address? Your confirmation goes there.", type:"email", validate:validEmail },
+    { key:"phone",   q:"What's your phone number?", type:"tel",   validate:function(v){ return v.replace(/\D/g,"").length>=7 || "That number looks too short."; } },
+    { key:"address", q:"What's your address or location?", type:"text", validate:function(v){ return v.length>=3 || "Please enter your address."; } },
+    { key:"notes",   q:"Anything else " + TUTOR_NAME + " should know? Type it, or tap Skip.", type:"notes" }
+  ];
+
+  var data = {}, stepIndex = 0, busy = false;
+
+  var chat   = document.getElementById("chat"),
+      bar    = document.getElementById("bar"),
+      input  = document.getElementById("input"),
+      send   = document.getElementById("sendbtn"),
+      errBox = document.getElementById("error"),
+      keys   = document.getElementById("keys");
+
+  for (var i=0;i<steps.length;i++){ var k=document.createElement("div"); k.className="key"; keys.appendChild(k); }
+  function paintKeys(){
+    var ks = keys.children;
+    for (var i=0;i<ks.length;i++){
+      ks[i].className = "key" + (i<stepIndex ? " done" : (i===stepIndex ? " now" : ""));
+    }
+  }
+
+  function bot(text, delay){
+    setTimeout(function(){
+      var m=document.createElement("div"); m.className="msg bot"; m.textContent=text;
+      chat.appendChild(m); chat.scrollTop = chat.scrollHeight;
+    }, delay||250);
+  }
+  function user(text){
+    var m=document.createElement("div"); m.className="msg user"; m.textContent=text;
+    chat.appendChild(m); chat.scrollTop = chat.scrollHeight;
+  }
+  function err(msg){ errBox.textContent = msg||""; errBox.classList.toggle("hidden", !msg); }
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || "That email doesn't look right."; }
+  function validDate(v){
+    if(!v) return "Please pick a date.";
+    var today = new Date(); today.setHours(0,0,0,0);
+    return (new Date(v+"T00:00") >= today) || "Please pick today or a future date.";
+  }
+  function prettyDate(iso){
+    var d = new Date(iso+"T00:00");
+    return d.toLocaleDateString(undefined,{ weekday:"short", day:"numeric", month:"short", year:"numeric" });
+  }
+  function prettyTime(t){
+    var p=t.split(":"), h=+p[0], m=p[1], ap=h>=12?"PM":"AM"; h=h%12||12;
+    return h+":"+m+" "+ap;
+  }
+
+  function ask(){
+    paintKeys();
+    err("");
+    if (stepIndex >= steps.length){ return summary(); }
+    var s = steps[stepIndex];
+    bot(s.q.replace("{name}", (data.name||"").split(" ")[0]));
+
+    if (s.type === "chips"){
+      bar.classList.add("hidden");
+      setTimeout(function(){
+        var wrap=document.createElement("div"); wrap.className="chips";
+        SERVICES.forEach(function(sv){
+          var c=document.createElement("button"); c.className="chip"; c.type="button"; c.textContent=sv;
+          c.onclick=function(){
+            wrap.remove();
+            if (sv==="Something else"){
+              bar.classList.remove("hidden");
+              input.type="text"; input.placeholder="Describe the music service you need"; input.focus();
+              steps[stepIndex].type="text";
+              steps[stepIndex].validate=function(v){ return v.length>=3 || "Tell me a little more."; };
+              bot("No problem, describe what you need. As long as it's music, " + TUTOR_NAME + " has you covered.");
+            } else {
+              data.service = sv; user(sv); stepIndex++; ask();
+            }
+          };
+          wrap.appendChild(c);
+        });
+        chat.appendChild(wrap); chat.scrollTop = chat.scrollHeight;
+      }, 550);
+      return;
+    }
+
+    bar.classList.remove("hidden");
+    input.value="";
+    input.type = (s.type==="notes") ? "text" : s.type;
+    input.placeholder =
+      s.type==="email" ? "you@example.com" :
+      s.type==="tel"   ? "+234 801 234 5678" :
+      s.type==="notes" ? "Optional note, or tap Skip" : "";
+    send.textContent = (s.type==="notes") ? "Skip" : "Send";
+    input.focus();
+  }
+
+  function submitStep(){
+    var s = steps[stepIndex];
+    var v = input.value.trim();
+
+    if (s.type==="notes"){
+      data.notes = v || "None";
+      if (v) user(v);
+      stepIndex++; return summary();
+    }
+    if (s.validate){
+      var ok = s.validate(v);
+      if (ok !== true){ err(ok); return; }
+    }
+    data[s.key] = v;
+    user( s.type==="date" ? prettyDate(v) : s.type==="time" ? prettyTime(v) : v );
+    err("");
+    stepIndex++; ask();
+  }
+
+  input.addEventListener("input", function(){
+    if (steps[stepIndex] && steps[stepIndex].type==="notes"){
+      send.textContent = input.value.trim() ? "Send" : "Skip";
+    }
+  });
+  send.addEventListener("click", submitStep);
+  input.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); submitStep(); } });
+
+  function summary(){
+    paintKeys();
+    bar.classList.add("hidden");
+    bot("Here's everything. Please confirm and I'll lock it in.");
+    setTimeout(function(){
+      var c=document.createElement("div"); c.className="card";
+      c.innerHTML = "<h3>Your booking</h3>"
+        + row("Service", data.service) + row("Date", prettyDate(data.date))
+        + row("Time", prettyTime(data.time)) + row("Name", data.name)
+        + row("Email", data.email) + row("Phone", data.phone)
+        + row("Address", data.address) + row("Notes", data.notes);
+      var btn=document.createElement("button"); btn.className="confirm"; btn.textContent="Confirm booking";
+      btn.onclick=function(){ if(!busy) sendBooking(btn); };
+      chat.appendChild(c); chat.appendChild(btn); chat.scrollTop = chat.scrollHeight;
+    }, 600);
+  }
+  function row(label,val){
+    return "<div><span>"+label+"</span><b>"+escapeHtml(val)+"</b></div>";
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function sendBooking(btn){
+    busy = true; btn.disabled = true; btn.textContent = "Booking...";
+    var startTs = Math.floor(new Date(data.date + "T" + data.time).getTime() / 1000);
+    var payload = {
+      name: data.name, email: data.email, phone: data.phone, address: data.address,
+      service: data.service, date: prettyDate(data.date), time: prettyTime(data.time),
+      notes: data.notes, start_ts: startTs
+    };
+    fetch(WEBHOOK_URL, {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(!r.ok) throw new Error("HTTP "+r.status);
+      btn.remove();
+      bot("You're booked! " + data.name.split(" ")[0] + ", your " + data.service.toLowerCase()
+        + " session is set for " + prettyDate(data.date) + " at " + prettyTime(data.time)
+        + ". A confirmation email is on its way to " + data.email + ". See you soon!");
+      stepIndex = steps.length;
+      var ks = keys.children; for (var i=0;i<ks.length;i++){ ks[i].className="key done"; }
+    }).catch(function(){
+      busy = false; btn.disabled = false; btn.textContent = "Confirm booking";
+      err("Couldn't reach the booking service. Check your connection and tap Confirm again.");
+    });
+  }
+
+  ask();
+})();
+</script>
+</body>
+</html>
